@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "title": "Go to the grocery store",
+        "completed": false
+    },
+    {
+        "id": 2,
+        "title": "Make a breakfast",
+        "completed": false
+    },
+    {
+        "id": 3,
+        "title": "Write a TODO app",
+        "completed": true
+    },
+    {
+        "id": 4,
+        "title": "Become a Frontend Developer",
+        "completed": true
+    }
+]
