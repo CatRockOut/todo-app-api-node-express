@@ -22,11 +22,9 @@ app.get('/api/todos/:id', (req, res) => {
     if (todo) {
         res.json(todo);
     } else {
-        res.status(404).json(
-            {
-                error: 'Todo not found'
-            }
-        );
+        res.status(404).json({
+            error: 'Todo not found'
+        });
     }
 });
 
@@ -34,9 +32,11 @@ app.get('/api/todos/:id', (req, res) => {
 app.post('/api/todos', (req, res) => {
     const todos = readTodos();
     const newTodo = {
-        id: todos.length + 1,
+        id: `${todos.length + 1}${new Date().getTime()}`,
         title: req.body.title,
-        completed: false,
+        completed: req.body.completed 
+            ? JSON.parse(req.body.completed) 
+            : false
     };
 
     todos.push(newTodo);
@@ -56,18 +56,14 @@ app.put('/api/todos/:id', (req, res) => {
             updatedTodo.title = req.body.title;
         }
 
-        if (req.body.completed !== undefined) {
-            updatedTodo.completed = JSON.parse(req.body.completed);
-        }
+        updatedTodo.completed = JSON.parse(req.body.completed);
 
         writeTodos(todos);
         res.json(todos[todoIndex]);
     } else {
-        res.status(404).json(
-            {
-                error: 'Todo not found'
-            }
-        );
+        res.status(404).json({
+            error: 'Todo not found'
+        });
     }
 });
 
@@ -82,11 +78,9 @@ app.delete('/api/todos/:id', (req, res) => {
         writeTodos(todos);
         res.json(deletedTodo[0]);
     } else {
-        res.status(404).json(
-            {
-                error: 'Todo not found'
-            }
-        );
+        res.status(404).json({
+            error: 'Todo not found'
+        });
     }
 });
 
